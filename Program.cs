@@ -45,20 +45,22 @@ namespace dictionaries
             
             Dictionary<string, double> totalStocks = new Dictionary<string, double>();
 
-
+            //loops over the purchase list
            foreach((string ticker, int shares, double price) purchase in purchases)
             {
-            // Does the company name key already exist in the report dictionary?
-              Console.WriteLine($"{purchase.ticker}");
+            // will check to see if the stocks dictionary contains the purchase.ticker value. 
               if(stocks.ContainsKey(purchase.ticker)){
+                  //checks to see if the totalStocks already has a key, which is the value of the purchase.ticker
                 if(totalStocks.ContainsKey(stocks[purchase.ticker])){
+                    //if it does, it will add the next (purchase.shares * purchase.price) to the existing value 
                     totalStocks[stocks[purchase.ticker]] += (purchase.shares * purchase.price);
                 }else{
+                    //if the dictionary does NOT already have the value, add it as well as a (purchase.shares * purchase.price) as a value;
                     totalStocks.Add(stocks[purchase.ticker], purchase.shares * purchase.price);
                 }
               }
             }
-            
+                    //syntax for iterating over a dictionary
             foreach( KeyValuePair<string, double> totalStock in totalStocks){
                 Console.WriteLine(totalStock);
             }
